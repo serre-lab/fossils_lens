@@ -1,2 +1,1 @@
-# fossils_lens
-LeafLineage: Tracing Fossil Ancestry
+# LeafLineage: Tracing Fossil Ancestry
