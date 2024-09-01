@@ -1,13 +1,20 @@
 .gallery,
 .duo-gallery {
     display: flex;
+    margin: 0 auto;
     flex-wrap: wrap;
     align-content: space-around;
     justify-content: space-around;
     max-width: 1200px;
-    padding: 10px;
+    flex-direction: column; /* Align items in a column */
+    align-items: center; /* Center child elements horizontally */
+    text-align: center;
 }
 
+.head {
+    padding-bottom: 24px;
+    padding-top: 5px;
+}
 
 .duo-gallery .left {
     width: 40%;
@@ -44,8 +51,9 @@
 }
 
 .feature-viz-intro {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: auto;
+    display: flex;
 }
 
 .feature-viz-intro .gallery-container-img:hover {
@@ -55,7 +63,6 @@
 }
 
 .feature-viz-intro .gallery-container-img {
-    width: 49%;
     max-width: 250px;
     border: solid 3px transparent;
     border-radius: 5%;
