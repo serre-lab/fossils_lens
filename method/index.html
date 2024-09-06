@@ -88,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#lens-method-will-go-here" class="md-skip">
+        <a href="#lens-method" class="md-skip">
           Skip to content
         </a>
       
@@ -294,6 +294,17 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Method
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -303,6 +314,61 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-concept-importance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding concept importance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-concept-proximity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Concept proximity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-concept-alignment-to-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Concept Alignment to Classes
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -622,6 +688,50 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-concept-importance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding concept importance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-concept-proximity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Concept proximity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-concept-alignment-to-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Understanding Concept Alignment to Classes
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -638,7 +748,16 @@
   
 
 
-<h1 id="lens-method-will-go-here">Lens method will go here<a class="headerlink" href="#lens-method-will-go-here" title="Permanent link">&para;</a></h1>
+<h1 id="lens-method">LENS Method<a class="headerlink" href="#lens-method" title="Permanent link">&para;</a></h1>
+<p>The pages contain a lot of information, and the goal is to guide you gradually towards a better understanding of interpreting these results.  </p>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>In summary, the method is quite simple: for each class, we take the points in the ImageNet dataset  predicted as and extract the concepts (directions on intermediate space) from these points using the <a href="https://arxiv.org/abs/2211.10154" style="color: rgb(84, 134, 255)"><strong>CRAFT </strong></a> method.  Once these concepts are obtained, they are just vectors in the latent space, and it is possible to obtain a  feature visualization - an image that maximise this direction - of these  vectors using <a href="https://arxiv.org/abs/2306.06805" style="color: rgb(62, 147, 131)"><strong>MACO </strong></a>.  Finally, since the decomposition is performed on the last layer, there is a linear relationship between the concept embedding and the model's decision. More details on the estimation of importance can be found in the <a href="https://arxiv.org/abs/2306.07304" style="color: rgb(250, 189, 56)"><strong>Holistic</strong></a> article. Now let's move on to interpreting the different components.  </p>
+<h2 id="understanding-concept-importance">Understanding concept importance<a class="headerlink" href="#understanding-concept-importance" title="Permanent link">&para;</a></h2>
+<p>For each point in the dataset, it is possible to obtain it's concepts values where  each values represent a concept. Moreover, we can also compute an importance vector, this vector  has a scalar value per concept, representing how crucial a concept was for the classification.  Based on these vectors, we perform UMAP to obtain the clustering graph.  Then, colors are assigned to each point based on its most important concept.  If a concept is the most important for at least 10 times, it is considered important and will be colored.  Finally, the global importance is the average of the logit scores contributed by the concepts across all points. Thus, a global importance of 30% means that the concept represents 30% of the sum of logits for the class.  </p>
+<h2 id="understanding-concept-proximity">Understanding Concept proximity<a class="headerlink" href="#understanding-concept-proximity" title="Permanent link">&para;</a></h2>
+<p>For each concept, it is possible to obtain its proximity to other concepts, i.e., how close they are in the latent space. To do this, we calculate the pairwise cosine similarity between the concepts. We then project  the results into 2D. Thus, two close concepts will have a close cosine similarity.  </p>
+<h2 id="understanding-concept-alignment-to-classes">Understanding Concept Alignment to Classes<a class="headerlink" href="#understanding-concept-alignment-to-classes" title="Permanent link">&para;</a></h2>
+<p>Similar to concept proximity, it is possible to compare the class's separating hyperplane with the concept, which gives us a degree of alignment between the concept and each class. The reported score is also the cosine similarity between the two vectors.</p>
 
 
 
